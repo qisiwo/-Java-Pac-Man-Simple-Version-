@@ -1,0 +1,96 @@
+PacMan Game (Java Swing)
+经典吃豆人游戏的 Java 实现，基于 Swing/AWT 开发，支持基本游戏逻辑、动画效果和碰撞检测。玩家控制 PacMan 吃掉所有豆子，躲避或反杀幽灵，体验复古街机乐趣。
+🚀 项目简介
+技术栈：Java SE、Swing/AWT、面向对象编程（OOP）
+功能：
+基础移动与碰撞检测（墙壁、幽灵、豆子）
+能量豆机制（短暂反杀幽灵能力）
+分数与生命系统
+动画效果（PacMan 帧动画、幽灵状态变化）
+多关卡逻辑（当前实现为单关卡，可扩展）
+目标：通过实战掌握 Java GUI 编程、游戏循环设计及碰撞检测算法。
+🛠️ 技术栈
+语言：Java 8+
+框架 / 工具：Swing（GUI）、AWT（绘图）、Java Timer（游戏循环）
+设计模式：
+面向对象封装（PacMan/Ghost/Wall 类独立职责）
+事件驱动（键盘监听、定时器回调）
+图形渲染（双缓冲绘图优化界面流畅度）
+📁 项目结构
+plaintext
+.
+├── PacManGame.java       # 主类，游戏逻辑与界面绘制
+├── Ghost.java           # 幽灵类，处理移动与状态
+├── Wall.java            # 墙壁类，处理碰撞与绘制
+├── PacManGifs/          # 资源文件夹（图片素材）
+│   ├── *.gif/*.png      # PacMan/幽灵/能量豆/背景图片
+└── README.md            # 项目说明
+✨ 核心功能特性
+1. 游戏核心逻辑
+PacMan 控制：通过方向键移动，支持 8 方向转向，碰撞墙壁时停止移动。
+吃豆机制：
+普通豆子（黄色）：得分 + 10，全部吃掉则胜利。
+能量豆（紫色）：激活幽灵反杀状态（5 秒），期间可吞噬幽灵得分。
+幽灵 AI：随机方向移动，能量状态下变为可被吞噬，普通状态下触碰即减少生命。
+2. 界面与交互
+动画效果：PacMan 移动时的张嘴闭嘴帧动画（4 帧循环）。
+状态反馈：实时显示分数（Score）、剩余生命（Lives）。
+游戏流程：
+启动界面：按 S 开始游戏。
+失败 / 胜利界面：显示最终得分，按 Q 退出。
+3. 技术实现亮点
+碰撞检测：基于网格坐标的墙壁碰撞算法（isWallAt方法）。
+图形绘制：使用Graphics类实现迷宫墙壁的连通区域绘制（紫色边框 + 黑色填充）。
+定时器驱动：通过Timer控制游戏循环（300ms / 帧），确保逻辑与画面同步更新。
+🚦 安装与运行
+环境要求
+Java Development Kit (JDK) 8+
+步骤
+克隆项目：
+bash
+git clone https://github.com/your-username/pacman-java-swing.git
+cd pacman-java-swing
+
+准备资源：
+确保PacManGifs/文件夹内包含所有图片素材（可从项目代码中复制或自行补充）。
+编译运行：
+bash
+# 使用命令行编译（需在src目录或调整包路径）
+javac PacManGame.java Ghost.java Wall.java
+java PacManGame
+
+或使用 IDE（如 IntelliJ IDEA/Eclipse）直接导入运行主类PacManGame。
+🎮 玩法说明
+操作按键：
+S：开始游戏
+方向键（↑↓←→）：控制 PacMan 移动
+Q：游戏结束时退出
+目标：
+吃掉所有黄色豆子，避开普通幽灵。
+吃到紫色能量豆后，主动撞击幽灵可消灭它们（限时 5 秒）。
+胜负条件：
+胜利：吃掉所有豆子，进入下一关（当前版本为单关卡，显示胜利界面）。
+失败：生命数（初始 3 条）耗尽，显示得分并结束游戏。
+🏗️ 代码架构
+主要类说明
+类名	职责描述
+PacManGame	主面板类，集成游戏逻辑与界面绘制：
+- 初始化游戏数据、加载图片、设置键盘监听
+- paintComponent绘制界面元素
+- actionPerformed处理游戏循环（移动、碰撞、得分）
+Ghost	幽灵类：
+- 随机移动逻辑（move方法）
+- 能量状态切换（setEnergized）
+- 位置与图像获取接口
+Wall	墙壁类：
+- 网格坐标碰撞检测（isWallAt）
+- 连通区域绘制（使用 DFS 算法合并相邻墙壁）
+关键技术点
+双缓冲绘图：通过paintComponent与repaint实现界面无闪烁更新。
+事件驱动架构：键盘事件（KeyListener）控制移动，定时器（Timer）驱动游戏逻辑。
+面向对象设计：将游戏元素（角色、障碍物）封装为独立类，通过接口交互（如Ghost与PacManGame的碰撞检测）。
+📧 联系
+如有问题，可通过以下方式联系：
+GitHub Issue：点击提交
+邮箱：3187269802@qq.com
+Enjoy the game! 🍭👻
